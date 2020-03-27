@@ -41,16 +41,16 @@
 				<div class="col-sm-10">
 					<select
 						class="form-control ${primeravez? '': (resena.errorCurso == null? 'is-valid ' : 'is-invalid')}"
-						id="curso"  <c:if test="${codCurso!=null}"></c:if>>
+						id="curso" name="curso" <c:if test="${codCurso!=null}"></c:if>>
 						<option disabled selected value="">Selecccione un curso</option>
 						<c:forEach items="${cursos}" var="curso">
 							<option
 								${codCurso==curso.codigo? 'selected' : curso.codigo == resena.curso.codigo? 'selected' : ''}
-								>${curso.nombre}</option>
+								value="${curso.codigo}">${curso.nombre}</option>
 						</c:forEach>
 						<!-- Si el alumno indica un curso para poner una reseña, se bloquea la opcion de elegir curso-->
 					</select> 
-					<input type="hidden" name="curso" value="${curso.codigo}"/>			
+<%-- 					<input type="hidden" name="curso" value="${curso.codigo}"/>			 --%>
 					<div class="invalid-feedback">${resena.errorCurso}</div>
 				</div>
 			</div>
