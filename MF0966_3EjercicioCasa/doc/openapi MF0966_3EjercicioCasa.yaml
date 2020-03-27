@@ -1,0 +1,282 @@
+openapi: 3.0.1
+info:
+  title: Ipartek
+  description: Ejercicio examen con Swagger
+  contact:
+    email: joseangel@email.net
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/MF0966_3EjercicioCasa/api/'
+paths:
+  /cursos:
+    get:
+      tags:
+        - cursos
+      summary: Obtener todos los cursos
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Curso'
+  '/cursos/{codigo}':
+    get:
+      tags:
+        - cursos
+      summary: Obtener curso por codigo
+      parameters:
+        - name: codigo
+          in: path
+          description: Codigo del curso pedido
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Curso'
+        '404':
+          description: No se ha encontrado el curso
+
+  /resenas:
+    get:
+      tags:
+        - resenas
+      summary: Obtener todas las resenas
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Resena'
+    post:
+      tags:
+        - resenas
+      summary: Dar de alta una reseña nueva
+      requestBody:
+        description: Resena a añadir
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resena'
+        required: true
+      responses:
+        '201':
+          description: Reseña creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resena'
+  '/resenas/{codigo}':
+    get:
+      tags:
+        - resenas
+      summary: Obtener resena por codigo
+      parameters:
+        - name: codigo
+          in: path
+          description: COdigo de la reseña pedida
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resena'
+        '404':
+          description: No se ha encontrado la reseña
+    put:
+      tags:
+        - resenas
+      summary: Modificar una reseña existente
+      parameters:
+        - name: codigo
+          in: path
+          description: Codigo de la reseña a  modificar
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Reseña a modificar
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resena'
+        required: true
+      responses:
+        '200':
+          description: Reseña modificada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resena'
+        '400':
+          description: No concuerdan los codigos
+        '404':
+          description: No se ha encontrado la reseña
+        
+    delete:
+      tags:
+        - resenas
+      summary: Borrar una reseña por su codigo
+      parameters:
+        - name: codigo
+          in: path
+          description: Codigo de la reseña a borrar
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Reseña borrada
+        '404':
+          description: No se ha encontrado la reseña
+          
+components:
+  schemas:
+    Alumno:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        apellidos:
+          type: string
+        fNacimiento:
+          type: string
+        direccion: 
+          type: string
+        poblacion:
+          type: string
+        codigopostal:
+          type: number
+        telefono:
+          type: number
+        email:
+          type: number
+        dni:
+          type: string
+        nHermanos:
+          type: number
+        activo:
+          type: boolean
+    Cliente:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        email:
+          type: string
+        telefono:
+          type: number
+        direccion:
+          type: string
+        poblacion:
+          type: string
+        codigopostal:
+          type: number
+        identificador:
+          type: string
+        activo:
+          type: boolean
+    Curso:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+        nombre: 
+          type: string
+        fInicio: 
+          type: string
+        fFin:
+          type: string
+        nHoras:
+          type: number
+        temario:
+          type: string
+        activo:
+          type: boolean
+        cliente:
+          $ref: '#/components/schemas/Cliente'
+        precio: 
+          type: number
+        profesor: 
+          $ref: '#/components/schemas/Profesor'
+    Imparticion:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+        curso:
+          $ref: '#/components/schemas/Curso'
+        alumno:
+          $ref: '#/components/schemas/Alumno'
+        fMatriculacion:
+          type: string
+    Profesor:
+      type: object
+      properties: 
+        codigo:
+          type: integer
+          format: int64
+        nss:
+          type: number
+        nombre:
+          type: string
+        apellidos:
+          type: string
+        fNacimiento:
+          type: string
+        dni:
+          type: string
+        direccion:
+          type: string
+        poblacion:
+          type: string
+        codigopostal:
+          type: number
+        telefono:
+          type: number
+        email:
+          type: string
+        activo:
+          type: boolean
+    Resena:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+        alumno:
+          $ref: '#/components/schemas/Alumno'
+        curso:
+          $ref: '#/components/schemas/Curso'
+        comentario:
+          type: string
+    
