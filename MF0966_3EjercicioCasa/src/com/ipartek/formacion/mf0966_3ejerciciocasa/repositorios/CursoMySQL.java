@@ -205,7 +205,6 @@ public class CursoMySQL implements CursoDao {
 						/*
 						 * DETALLE DE UN CURSO CON SUS CAMPOS try (ResultSet rs = ps.executeQuery()) {
 						 * 
-						 * 
 						 * Profesor profesor; Cliente cliente; Curso curso; if (rs.next()) { profesor =
 						 * new Profesor(rs.getInt("p.codigo"), rs.getLong("p.nss"),
 						 * rs.getString("p.nombre"), rs.getString("p.apellidos"),
