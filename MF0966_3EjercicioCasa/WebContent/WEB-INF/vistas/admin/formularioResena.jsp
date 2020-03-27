@@ -41,7 +41,7 @@
 				<div class="col-sm-10">
 					<select
 						class="form-control ${primeravez? '': (resena.errorCurso == null? 'is-valid ' : 'is-invalid')}"
-						id="curso"  <c:if test="${codCurso!=null}">disabled="true"</c:if>>
+						id="curso"  <c:if test="${codCurso!=null}"></c:if>>
 						<option disabled selected value="">Selecccione un curso</option>
 						<c:forEach items="${cursos}" var="curso">
 							<option
@@ -50,20 +50,7 @@
 						</c:forEach>
 						<!-- Si el alumno indica un curso para poner una reseña, se bloquea la opcion de elegir curso-->
 					</select> 
-					<input type="hidden" name="curso" value="${curso.codigo}"/>
-					
-					<select id="escolaridad" class="form-control reset inputt drop"
-						disabled="disabled">
-						<option value="0">Seleccione escolaridad</option>
-						<option value="1">Básica incompleta</option>
-						<option value="2">Básica completa</option>
-						<option value="3">Educación Media incompleta</option>
-						<option value="4">Educación Media completa</option>
-						<option value="5">Técnico nivel medio</option>
-						<option value="6">Técnico nivel superior</option>
-						<option value="7">Técnico profesional universitario</option>
-						<option value="8">Profesional universitario</option>
-					</select>
+					<input type="hidden" name="curso" value="${curso.codigo}"/>			
 					<div class="invalid-feedback">${resena.errorCurso}</div>
 				</div>
 			</div>
