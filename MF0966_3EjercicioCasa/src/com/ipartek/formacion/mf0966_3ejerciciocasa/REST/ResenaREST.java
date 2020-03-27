@@ -53,9 +53,14 @@ public class ResenaREST {
 	@POST
 	public Response agregar(Resena resena) {
 		LOGGER.info("Agregar");
-
-		Globales.daoResena.agregar(resena);
-		return Response.status(Status.CREATED).entity(resena).build();
+		if (resena.isCorrecto()) {
+			Globales.daoResena.agregar(resena);
+			LOGGER.warning("Reseña creada");
+			return Response.status(Status.CREATED).entity(resena).build();
+		}else {
+			LOGGER.warning("Los datos de la reseña no son correctos");
+			return Response.status(Status.BAD_REQUEST).entity(resena).build();
+		}
 	}
 
 	@PUT
@@ -80,7 +85,7 @@ public class ResenaREST {
 			LOGGER.warning("No se ha encontrado la resena(" + codigo + ")");
 			throw new WebApplicationException("No se ha encontrado la resena(" + codigo + ")", Status.NOT_FOUND);
 		}
-		
+
 		Globales.daoResena.modificar(resena);
 		return resena;
 	}
@@ -89,14 +94,14 @@ public class ResenaREST {
 	@Path("/{codigo: \\d+}")
 	public String borrar(@PathParam("codigo") Integer codigo) {
 		LOGGER.info("Borrar");
-		
+
 		Resena resena = Globales.daoResena.obtenerPorCodigo(codigo);
-		if (resena==null) {
+		if (resena == null) {
 			LOGGER.warning("No se ha encontrado la reseña(" + codigo + ")");
 			throw new WebApplicationException("No se ha encontrado la reseña(" + codigo + ")", Status.NOT_FOUND);
 		}
 		Globales.daoResena.borrar(codigo);
 		return "Borrada";
 	}
-	
+
 }

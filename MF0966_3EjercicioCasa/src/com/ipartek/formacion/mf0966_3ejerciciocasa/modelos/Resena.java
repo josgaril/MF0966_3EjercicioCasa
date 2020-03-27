@@ -1,5 +1,7 @@
 package com.ipartek.formacion.mf0966_3ejerciciocasa.modelos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Resena {
 
 	private Integer codigo;
@@ -50,6 +52,7 @@ public class Resena {
 		return alumno;
 	}
 
+	@JsonProperty
 	public void setAlumno(Alumno alumno) {
 		this.alumno = alumno;
 	}
@@ -57,7 +60,8 @@ public class Resena {
 	public Curso getCurso() {
 		return curso;
 	}
-
+	
+	@JsonProperty
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}

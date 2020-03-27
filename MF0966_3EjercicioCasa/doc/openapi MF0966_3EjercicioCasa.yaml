@@ -80,6 +80,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Resena'
+        '400':
+          description: Los datos de la reseña son incorrectos
   '/resenas/{codigo}':
     get:
       tags:
@@ -129,10 +131,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Resena'
         '400':
-          description: No concuerdan los codigos
+          description: No coinciden los codigos
         '404':
           description: No se ha encontrado la reseña
-        
     delete:
       tags:
         - resenas
