@@ -16,7 +16,7 @@
 				<th>Fecha Fin</th>
 				<th>Numero de horas</th>
 				<th>Temario</th>
-				<th>Activo</th>
+<!-- 				<th>Activo</th> -->
 				<th>Cliente</th>
 				<th>Precio</th>
 				<th>Profesor</th>
@@ -27,13 +27,13 @@
 				<th>${curso.codigo}</th>
 				<td>${curso.nombre}</td>
 				<td>${curso.identificador}</td>
-				<td>${curso.fInicio}</td>
-				<td>${curso.fFin}</td>
-				<td>${curso.nHoras}</td>
+				<td><fmt:formatDate value="${curso.fInicio}" pattern="dd-MM-yyyy"/></td>				
+				<td><fmt:formatDate value="${curso.fFin}" pattern="dd-MM-yyyy"/></td>				
+				<td>${curso.nHoras}h</td>
 				<td>${curso.temario}</td>
-				<td>${curso.activo}</td>
+<%-- 				<td>${curso.activo}</td> --%>
 				<td>${curso.cliente.nombre}</td>
-				<td>${curso.precio}</td>
+				<td>${curso.precio}€</td>
 				<td>${curso.profesor.nombre}${curso.profesor.apellidos}</td>
 			</tr>
 		</tbody>
@@ -57,7 +57,7 @@
 				<tr>
 					<td>${resena.alumno.nombre} ${resena.alumno.apellidos}</td>
 					<td><c:if test="${r.comentario!= '' }">
-							<a class="comentarios" href="javascript:alert('${resena.comentario}')">${fn:substring(resena.comentario, 0, 60)}
+							<a class="comentarioCurso" href="javascript:alert('${resena.comentario}')">${fn:substring(resena.comentario, 0, 60)}
 								${ fn:length(resena.comentario) > 60 ? '...' : '' } </a>
 						</c:if></td>
 					
@@ -69,7 +69,7 @@
 				<th>Alumno</th>
 				<th>Comentario
 				<!--  Boton accesible si está logeado, sino bloqueado. si accede tendra que dejar bloqueado el curso y el alumno -->
-				 	<a class="btn btn-primary float-right" href="admin/resena?op=agregar&codCurso=${curso.codigo}"> Agregar reseña</a>
+				 	<a class="btn btn-primary float-right ${sessionScope.usuario==null?'disabled':'' }" href="admin/resena?op=agregar&codCurso=${curso.codigo}"> Agregar reseña</a>
 				</th>
 			</tr>
 		</tfoot>
