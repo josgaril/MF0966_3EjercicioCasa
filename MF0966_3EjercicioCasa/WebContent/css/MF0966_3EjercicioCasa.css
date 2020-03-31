@@ -1,7 +1,20 @@
 @charset "UTF-8";
 
-.comentarios{ 
+body{
+	background-color: #ffc16f;
+}
+.comentarioCurso{ 
 	text-decoration: none;
-	color: black;
+	color: black;	
 }
 
+.comentarioCurso:hover {
+	text-decoration: none;
+}
+
+.tarjetas{
+	background-color: #c0c0c0;
+	width: 18rem;
+	border-width: 2px;
+	border-color: black;
+}
