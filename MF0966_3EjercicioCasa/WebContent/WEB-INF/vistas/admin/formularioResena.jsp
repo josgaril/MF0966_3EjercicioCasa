@@ -39,18 +39,34 @@
 			<div class="form-group row">
 				<label for="curso" class="col-sm-2 col-form-label">Curso</label>
 				<div class="col-sm-10">
-					<select
-						class="form-control ${primeravez? '': (resena.errorCurso == null? 'is-valid ' : 'is-invalid')}"
-						id="curso" name="curso" <c:if test="${codCurso!=null}"></c:if>>
-						<option disabled selected value="">Selecccione un curso</option>
-						<c:forEach items="${cursos}" var="curso">
-							<option
-								${codCurso==curso.codigo? 'selected' : curso.codigo == resena.curso.codigo? 'selected' : ''}
-								value="${curso.codigo}">${curso.nombre}</option>
-						</c:forEach>
-						<!-- Si el alumno indica un curso para poner una reseña, se bloquea la opcion de elegir curso-->
-					</select> 
-<%-- 					<input type="hidden" name="curso" value="${curso.codigo}"/>			 --%>
+					<c:choose>
+						<c:when test="${codCurso!=null}">
+							<input type="text" readonly class="form-control-plaintext"
+								id="curso" name="curso" value="${codCurso == resena.curso.codigo? curso.codigo:'as'}a">
+							<div class="col-sm-10">
+								<input type="text" readonly class="form-control-plaintext"
+									id="staticEmail" value="${resena.curso.nombre}">
+							</div>
+							<%-- 							<input type="text" class="form-control" id="curso" name="curso"
+								${codCurso==curso.codigo? 'value="${curso.nombre}" readonly': '2'}> --%>
+							<%-- 								value="${codCurso==curso.codigo? curso.nombre:'2'}"readonly--%>
+						</c:when>
+						<c:otherwise>
+							<select
+								class="form-control ${primeravez? '': (resena.errorCurso == null? 'is-valid ' : 'is-invalid')}"
+								id="curso" name="curso">
+								<option disabled selected value="">Selecccione un curso</option>
+								<c:forEach items="${cursos}" var="curso">
+									<option ${curso.codigo == resena.curso.codigo? 'selected' : ''}
+										value="${curso.codigo}">${curso.nombre}</option>
+								</c:forEach>
+								<!-- Si el alumno indica un curso para poner una reseña, se bloquea la opcion de elegir curso-->
+							</select>
+
+						</c:otherwise>
+					</c:choose>
+
+					<%-- 					<input type="hidden" name="curso" value="${curso.codigo}"/>			 --%>
 					<div class="invalid-feedback">${resena.errorCurso}</div>
 				</div>
 			</div>
